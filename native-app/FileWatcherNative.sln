@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileWatcherNative", "FileWatcherNative.vcxproj", "{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Debug|x64.ActiveCfg = Debug|x64
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Debug|x64.Build.0 = Debug|x64
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Debug|x86.ActiveCfg = Debug|Win32
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Debug|x86.Build.0 = Debug|Win32
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Release|x64.ActiveCfg = Release|x64
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Release|x64.Build.0 = Release|x64
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Release|x86.ActiveCfg = Release|Win32
+		{1ECC4F37-5FD9-4DDB-99C5-B76A83DEFF09}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9750A1C-6DE9-4DC1-8351-A8FC25CC022B}
+	EndGlobalSection
+EndGlobal

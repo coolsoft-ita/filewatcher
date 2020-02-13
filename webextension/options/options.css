@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;  
+  background-color: var(--in-content-page-background);
+  color: var(--in-content-text-color);
 }
 
 h2 {
@@ -65,7 +67,6 @@ ol li {
   border-radius: 5px;
   margin: .5em 0;
   padding: .5em;
-  background-color: #f5f5f5;
 }
 label,
 .rule .label {

@@ -2,7 +2,7 @@
   "description": "Reload a web page when one of the watched local filesystem items changes.",
   "manifest_version": 2,
   "name": "FileWatcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage_url": "https://coolsoft.altervista.org/filewatcher",
 
   "applications": {
@@ -40,6 +40,7 @@
 
   "options_ui": {
     "page": "options/options.html",
+    "browser_style": true,
     "chrome_style": true
   },
 

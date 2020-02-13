@@ -3,7 +3,7 @@
 /**
  * Defined application constants
  */
-#define APP_VERSION         "1.0.0"
+#define APP_VERSION         "1.0.1"
 #define APP_NAME            "filewatcher"
 #define APP_DESCRIPTION     "Native client for FileWatcher browser extension"
 #define PROTOCOL_VERSION    "1.0"

@@ -22,3 +22,12 @@ if you want to test the latest available one you need to:
 
 ## Licensing
 FileWatcher is open source software, licensed under GPLv3.  
+
+# Version history
+
+## v.1.0.1 - 2020-02-13
+- Fixed Options page colors when Firefox Dark mode is enabled.
+
+## v.1.0.0 - 2019-07-31
+- First release
+

@@ -2,18 +2,18 @@
 
 ## Introduction
 
-FileWatcher needs to access host filesystem to detect when one of the files contained
+FileWatcher needs to access the host filesystem to detect when one of the files contained
 in a watched directory has been created/changed/deleted;
-when this happens, it must notify the WebExtension causing a webpage reload.
+when this happens, it must notify the WebExtension, causing a webpage reload.
 
 For security reasons browsers don't allow WebExtensions to
 access the host filesystem, so there's no other way for them to know when
-something changed in watched directories but using a **native apps**.
+something changed in watched directories without using a **native app**.
 
 ## Native app
 
 A **native app** (NA from now on) is an executable running on the host that can
-exchanges messages with the WebExtension and implements all the missing pieces
+exchange messages with the WebExtension and implement all the missing pieces
 (see [Mozilla Firefox reference](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging)).  
 
 The NA runs with browser user privileges and so have access to all of the
@@ -30,7 +30,7 @@ reads from its STDOUT.
 
 NOTE: to debug exchanged messages you can use the browser console (CTRL+J on Firefox).
 
-Messages sent between FileWatcher extension and its NA are **JSON messages** with this basic format:
+Messages sent between the FileWatcher extension and its NA are **JSON messages** with this basic format:
 ```
 {
     msg: <messageId>
@@ -68,7 +68,7 @@ NA 🡆 WebExtension
 Starts a new watcher instance on the given directory.
 
 NOTE: the WebExtension sends a "start" for each opened tab that satisfies a rule, and
-a stop for each tab that does not satisfies it anymore.
+a stop for each tab that does not satisfy it anymore.
 The NA must keep an activation counter for each watcher/rule pair.
 ```
 WebExtension 🡆 NA
@@ -86,7 +86,7 @@ Stop the existing watcher for the given ruleId.
 If the watcher does not exist, no error is raised.
 
 NOTE: the WebExtension sends a "start" for each opened tab that satisfies a rule, and
-a stop for each tab that does not satisfies it anymore.
+a stop for each tab that does not satisfy it anymore.
 The NA must keep an activation counter for each watcher/rule pair.
 ```
 WebExtension 🡆 NA
@@ -102,7 +102,7 @@ WebExtension 🡆 NA
 Stop all the existing watchers.
 
 NOTE: this message is sent when configuration is changed and is followed by new starts.
-The NA must close all active watchers despite their counter value.
+The NA must close all active watchers regardless of their counter values.
 ```
 {
     msg: "stopAll"

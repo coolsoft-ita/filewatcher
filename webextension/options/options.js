@@ -52,7 +52,8 @@ $(document).ready(function(){
      * Read version info and show it to the user.
      * @returns {undefined}
      */
-    function NativeAppAvailable(nativeVersion) {
+    function NativeAppAvailable(nativeVersion)
+    {
         // set UI
         $('#cmdSave').click(SaveConfiguration);
         $('#cmdAddNew').click(AddNewRule);
@@ -109,7 +110,8 @@ $(document).ready(function(){
     /**
      * Return the HTML item containing the given ruleId
      */
-    function FindRuleItem(ruleId) {
+    function FindRuleItem(ruleId)
+    {
         let $found = null;
         $('tbody.rule .field-ruleId').each(function(){
             if ($(this).val() == ruleId) {
@@ -122,21 +124,47 @@ $(document).ready(function(){
 
 
     /**
+     * Duplicate the given rule HTML item and add it after to source elem
+     */
+    function DuplicateRuleItem(ruleElem)
+    {
+        // duplicate source rule
+        let newElem = ruleElem.clone(true);
+
+        // set random ruleId
+        let idField = newElem.find('.field-ruleId');
+        idField.val(GetNewRuleID());
+
+        // add new rule and select it
+        ruleElem.after(newElem);
+        newElem.find('.field-ruleId').focus().select();
+    }
+
+
+    /**
      * Add a new rule element to list
      */
-    function AddNewRule() {
-
+    function AddNewRule()
+    {
         // remove the .norules-tag item, if exists
         tblRules.children('.norules').remove();
 
         // add the new rule
-        let ruleId = 'rule_' + new Date().getTime();
+        let ruleId = GetNewRuleID();
         let $newRuleItem = Rule2HTML(ruleId, new Rule());
         tblRules.append($newRuleItem);
 
         // give focus to the newly added rule
         $newRuleItem.find('.field-ruleId').focus().select();
+    }
 
+
+    /**
+     * Returns a random ruleId
+     */
+    function GetNewRuleID()
+    {
+        return 'rule_' + new Date().getTime();
     }
 
 
@@ -214,6 +242,9 @@ $(document).ready(function(){
                 else {
                     $elem.val(rule[key]);
                 }
+            });
+            $template.find('.cmdDuplicate').click(function(){
+                DuplicateRuleItem($(this).closest('tbody'));
             });
             $template.find('.cmdDelete').click(function(){
                 if (confirm('Delete this rule?')) {

@@ -2,7 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;  
-  background-color: var(--in-content-page-background);
+  background-color: var(--in-content-box-background);
   color: var(--in-content-text-color);
 }
 
@@ -68,34 +68,42 @@ ol li {
   margin: .5em 0;
   padding: .5em;
 }
+
 label,
 .rule .label {
   padding-right: 1em;
   white-space: nowrap;
+  display: inline-flex;
 }
+
 .rule .value {
   width: 100%;
   padding: .1em 0;
 }
+
 .rule .field {
   width: 100%;
   font-family: monospace !important;
 }
+
 .rule .field-ruleId {
   width: auto;
   font-weight: bold;
 }
+
 .actions {
+  white-space: nowrap;
   text-align: right;
 }
+
 .actions button {
   padding: 0 .4em;
   margin-left: .2em;
   min-width: unset;
 }
-.cmdDelete {
+
+button.cmdDelete:hover {
   background-color: red;
-  color: white;
 }
 
 input[type="checkbox"] {

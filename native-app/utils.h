@@ -1,7 +1,7 @@
 #pragma once
 
 // platform specific defines
-#ifdef WIN32
+#ifdef _WIN32
     #define _PLATFORM_WIN
 #endif
 #ifdef __unix__

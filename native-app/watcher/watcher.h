@@ -3,7 +3,7 @@
 #include <regex>
 
 // platform specific string define
-#if defined WIN32
+#if _WIN32
     #define _PLATFORM_WIN
     typedef std::wstring fwstring;
     typedef std::wregex  fwregex;

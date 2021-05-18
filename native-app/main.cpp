@@ -177,7 +177,7 @@ void sendResponse(Json::object &&values) {
     // create JSON object
     Json response = values;
     string responseBody = response.dump();
-    unsigned int len = responseBody.length();
+    unsigned int len = (unsigned int)responseBody.length();
 
     // send message len + body
     Log("Response: %s", responseBody.c_str());

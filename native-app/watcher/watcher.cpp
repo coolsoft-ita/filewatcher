@@ -5,7 +5,7 @@
 
 
 #define NOTIFY_DELAY 1000
-#ifdef WIN32
+#ifdef _WIN32
     #define NATIVE_STRING(x)  string2wstring(x)
     #define FORCE_STRING(x)   wstring2string(x)
 #else

@@ -25,6 +25,9 @@ FileWatcher is open source software, licensed under GPLv3.
 
 # Version history
 
+## v.1.0.1.1 - 2021-09-06
+- Updated privacy policy to state this addon DOES NOT collect any user data.
+
 ## v.1.0.1 - 2020-02-13
 - Fixed Options page colors when Firefox Dark mode is enabled.
 

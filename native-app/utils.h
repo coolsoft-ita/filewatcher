@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 // platform specific defines
 #ifdef _WIN32
@@ -38,7 +39,7 @@ std::string getBinaryFilename();
 
 
 /*
- * Return true if the given comand line parameter exists.
+ * Return true if the given command line parameter exists.
  */
 bool hasCmdlineParam(const char* search);
 

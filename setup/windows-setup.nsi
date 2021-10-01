@@ -1,8 +1,8 @@
 ; ===============================================================
 ; This file must be compiled with the Unicode version of NSIS 3.x
 ; ===============================================================
-!if "${NSIS_PACKEDVERSION}" < 0x3003000
-  !error "NSIS 3.03 or higher is required to build this installer!"
+!if "${NSIS_PACKEDVERSION}" < 0x3008000
+  !error "NSIS 3.08 or higher is required to build this installer!"
 !endif
 Unicode true
 SetCompressor /solid lzma
@@ -14,15 +14,16 @@ SetCompressor /solid lzma
 RequestExecutionLevel user
 
 ; General Symbol Definitions
-!define COMPANY               "CoolSoft"
-!define PRODUCT_SHORT         "FileWatcher"
-!define PRODUCT               "${PRODUCT_SHORT} (Native application)"
-!define EXEFILENAME           "FileWatcher.exe"
-!define URL                   "http://coolsoft.altervista.org"
-!define URL_product           "http://coolsoft.altervista.org/filewatcher"
-!define UNINSTALL_REGKEY      "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_SHORT}"
-!define MANIFEST_FILE         "filewatcher-firefox.json"
-!define FIREFOX_REGKEY        "Software\Mozilla\NativeMessagingHosts\filewatcher"
+!define COMPANY           "CoolSoft"
+!define PRODUCT_SHORT     "FileWatcher"
+!define PRODUCT           "${PRODUCT_SHORT} (Native application)"
+!define EXEFILENAME       "FileWatcher.exe"
+!define URL               "http://coolsoft.altervista.org"
+!define URL_product       "http://coolsoft.altervista.org/filewatcher"
+!define UNINSTALL_REGKEY  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_SHORT}"
+!define MANIFEST_FILE     "filewatcher-firefox.json"
+!define FIREFOX_REGKEY    "Software\Mozilla\NativeMessagingHosts\filewatcher"
+!define COPYRIGHT         "Copyright (C) 2021 by CoolSoft"
 
 ; The name of the installer
 Name "${PRODUCT}"
@@ -43,10 +44,14 @@ VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
 VIAddVersionKey FileVersion "${VERSION}.0"
 VIAddVersionKey FileDescription "${PRODUCT} setup file"
-VIAddVersionKey LegalCopyright "${VERSION_COPYRIGHT}"
+VIAddVersionKey LegalCopyright "${COPYRIGHT}"
 
 ; The file to write
 OutFile "FileWatcher_NativeApp_${VERSION}.exe"
+
+; Sign both installer and uninstaller
+!finalize 'sleep 1 && ..\native-app\sign-binaries.bat "%1"' = 0
+!uninstfinalize 'sleep 1 && ..\native-app\sign-binaries.bat "%1"' = 0
 
 ; MUI Symbol Definitions
 !include MUI2.nsh

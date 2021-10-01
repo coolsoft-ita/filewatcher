@@ -153,8 +153,7 @@
       <Command>taskkill /f /im $(TargetName).$(OutputType) /fi "memusage gt 40" 2&gt;NUL</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(SolutionDir)\sign-binaries.bat "$(TargetPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

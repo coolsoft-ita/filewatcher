@@ -1,6 +1,6 @@
 .*
 docs/
-setup/*.exe
-setup/*.tar.gz
-setup/*.sh
-setup/*.zip
+setup/**/*.exe
+setup/**/*.tar.gz
+setup/**/*.sh
+setup/**/*.zip

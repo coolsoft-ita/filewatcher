@@ -4,7 +4,7 @@
 #include "version.h"
 #include "main.h"
 #include "dialogs/tinyfiledialogs.h"
-
+#include <cstring>
 
 #if defined _PLATFORM_WIN
     #include <Windows.h>

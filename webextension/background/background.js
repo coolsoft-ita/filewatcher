@@ -189,7 +189,7 @@ function IncomingMessageHandler(response) {
           let tabId = tabs[i].id;
           if (tabRules[tabId] == ruleId) {
             console.log("Refreshing tab: " + tabId + " because of rule #" + ruleId);
-            chrome.tabs.reload(tabId);
+            chrome.tabs.reload(tabId, {bypassCache: true});
           }
         }
       });

@@ -52,7 +52,7 @@ function OpenHelpWindow() {
  * @classdesc Rule definition
  * @class
  */
-function Rule(urlPattern = '', directory = '', includePattern = DEFAULT_EXT_PATTERN, excludePattern = '') {
+function Rule(urlPattern = '', directory = '', includePattern = DEFAULT_EXT_PATTERN, excludePattern = '', bypassCache = false) {
 
     /**
      * Is this rule enabled?
@@ -85,6 +85,12 @@ function Rule(urlPattern = '', directory = '', includePattern = DEFAULT_EXT_PATT
      * @type {string}
      */
     this.excludePattern = excludePattern;
+
+    /**
+     * Clear browser cache before reloading the tab
+     * @type {boolean}
+     */
+    this.bypassCache = bypassCache;
 
     /**
     * Validate the rule.

@@ -31,8 +31,15 @@ $(document).ready(function(){
     // load settings and update rules list
     chrome.storage.local.get(['enabled', 'rules', 'onlyIfFocused'], function(settings){
         if (settings.hasOwnProperty('rules')) {
-            var rules = JSON.parse(settings.rules);
-            UpdateRulesList(rules || {});
+            // stored objects could be "different" from current ones, so merge them
+            var rules = {};
+            var saved = JSON.parse(settings.rules || '{}');
+            saved = typeof(saved) === 'object' ? saved : {};
+            for (let id in saved) {
+              rules[id] = Object.assign(new Rule(), saved[id]);
+            }
+            // update options page
+            UpdateRulesList(rules);
         }
         $('#chkEnabled').prop('checked', settings.enabled);
         $('#chkOnlyIfFocused').prop('checked', settings.onlyIfFocused !== undefined ? settings.onlyIfFocused : true);
@@ -40,6 +47,8 @@ $(document).ready(function(){
 
     // attach events to UI elements
     $('#cmdSave').click(SaveConfiguration);
+    $('#cmdAddNew').click(AddNewRule);
+    $('#cmdHelp').click(OpenHelpWindow);
     $('#cmdReload').click(function () {
         location.reload();
     });
@@ -55,9 +64,6 @@ $(document).ready(function(){
     function NativeAppAvailable(nativeVersion)
     {
         // set UI
-        $('#cmdSave').click(SaveConfiguration);
-        $('#cmdAddNew').click(AddNewRule);
-        $('#cmdHelp').click(OpenHelpWindow);
         $('#info .field-version').html(nativeVersion.version);
         $('#info .field-protocolVersion').html(nativeVersion.protocolVersion);
         $('#info .field-executable').html(nativeVersion.executable);
@@ -113,9 +119,9 @@ $(document).ready(function(){
     function FindRuleItem(ruleId)
     {
         let $found = null;
-        $('tbody.rule .field-ruleId').each(function(){
+        $('.rule .field-ruleId').each(function(){
             if ($(this).val() == ruleId) {
-                $found = $(this).closest('tbody');
+                $found = $(this).closest('.rule');
                 return false; // escape from each()
             }
         });
@@ -181,7 +187,7 @@ $(document).ready(function(){
 
         // scan rule HTML items and build rules
         let errorsFound = false;
-        $('#tblRules tbody').each(function(){
+        $('#tblRules .rule').each(function(){
             var item = $(this);
             var rule = ValidateHTMLItem(item, rules);
             if (rule === false) {
@@ -197,8 +203,7 @@ $(document).ready(function(){
 
         // save rules and refresh the list
         if (!errorsFound) {
-            chrome.storage.local.set({ rules: JSON.stringify(rules) });
-            chrome.storage.local.set({ saved: true });
+            chrome.storage.local.set({ rules: JSON.stringify(rules), saved: true });
             UpdateRulesList(rules || {});
         }
 
@@ -212,7 +217,7 @@ $(document).ready(function(){
     function UpdateRulesList(rules)
     {
         // cleanup
-        tblRules.find('tbody').remove();
+        tblRules.find('.rule').remove();
 
         // fill data
         $.each(rules, function(ruleId, rule){
@@ -244,11 +249,11 @@ $(document).ready(function(){
                 }
             });
             $template.find('.cmdDuplicate').click(function(){
-                DuplicateRuleItem($(this).closest('tbody'));
+                DuplicateRuleItem($(this).closest('.rule'));
             });
             $template.find('.cmdDelete').click(function(){
                 if (confirm('Delete this rule?')) {
-                    $(this).closest('tbody').remove();
+                    $(this).closest('.rule').remove();
                 }
             });
             $template.find('.cmdSelectDirectory').click(function () {

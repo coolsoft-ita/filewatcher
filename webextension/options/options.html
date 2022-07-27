@@ -1,136 +1,142 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="chrome://global/skin/in-content/common.css"/>
-        <link rel="stylesheet" href="options.css"/>
-        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="../js/common.js"></script>
-        <script type="text/javascript" src="options.js"></script>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="chrome://global/skin/in-content/common.css"/>
+  <link rel="stylesheet" href="options.css"/>
+  <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="options.js"></script>
+</head>
 
-    <body>
-        <div id="native" class="section">
+<body>
+  <div id="native" class="section">
 
-            <h2>Native application (file watcher agent)</h2>
+    <h2>Native application (file watcher agent)</h2>
 
-            <div id="native-wait">
-                <p>Connecting to native application, please wait...</p>
-                <img src="../icons/ajax-loader.gif" />
-            </div>
+    <div id="native-wait">
+      <p>Connecting to native application, please wait...</p>
+      <img src="../icons/ajax-loader.gif" />
+    </div>
 
-            <table id="info" class="hidden">
-                <tr>
-                    <td class="label">Version:</td>
-                    <td class="value field-version">&lt;unknown&gt;</td>
-                </tr>
-                <tr>
-                    <td class="label">Protocol version:</td>
-                    <td class="value field-protocolVersion">&lt;unknown&gt;</td>
-                </tr>
-                <tr>
-                    <td class="label">Executable:</td>
-                    <td class="value field-executable"></td>
-                </tr>
-            </table>
+    <table id="info" class="hidden">
+      <tr>
+        <td class="label">Version:</td>
+        <td class="value field-version">&lt;unknown&gt;</td>
+      </tr>
+      <tr>
+        <td class="label">Protocol version:</td>
+        <td class="value field-protocolVersion">&lt;unknown&gt;</td>
+      </tr>
+      <tr>
+        <td class="label">Executable:</td>
+        <td class="value field-executable"></td>
+      </tr>
+    </table>
 
-            <div id="native-error" class="hidden">
-                <p class="error">ERROR: native application is not installed or misconfigured.</p>
-                <p id="native-error-message" class="error"></p>
-                <p>
-                    FileWatcher needs a native application component (file watcher agent)
-                    to be installed in your operating system;
-                    it watches for file changes and reports them back to browser extension.
-                </p>
-                <p>
-                    <a target="_blank" href="https://coolsoft.altervista.org/filewatcher">Click here</a> to download the native application component for your platform.
-                </p>
-            </div>
+    <div id="native-error" class="hidden">
+      <p class="error">ERROR: native application is not installed or misconfigured.</p>
+      <p id="native-error-message" class="error"></p>
+      <p>
+        FileWatcher needs a native application component (file watcher agent)
+        to be installed in your operating system;
+        it watches for file changes and reports them back to browser extension.
+      </p>
+      <p>
+        <a target="_blank" href="https://coolsoft.altervista.org/filewatcher">Click here</a> to download the native application component for your platform.
+      </p>
+    </div>
 
+  </div>
+
+  <div id="options" class="section">
+    <h2>Options</h2>
+    <p>
+      <label><input type="checkbox" id="chkEnabled">Enabled</label>
+    </p>
+    <p>
+      <label><input type="checkbox" checked="checked" id="chkOnlyIfFocused">Reload tab only if focused</label>
+    </p>
+  </div>
+
+  <div id="rules" class="section">
+    <h2>Rules</h2>
+    <p>List of configured rules, click <a id="cmdHelp" href="#">here</a> for help.</p>
+    <div id="tblRules" class="rules"></div>
+    <div id="actions" class="actions">
+      <button id="cmdAddNew" type="button" title="Add new rule">&#x271A;</button>
+      <button id="cmdSave" type="button">Apply configuration</button>
+    </div>
+  </div>
+
+
+  <!-------------------
+    rule item template
+    ------------------->
+    <template id="itemTemplate">
+      <div class="rule">
+        <div class="rule-row">
+          <div class="label">Rule ID</div>
+          <div class="value">
+            <input type="text" class="field field-ruleId" placeholder="Unique rule name">
+          </div>
+          <div class="actions">
+            <label><input type="checkbox" class="field-enabled">Enabled</label>
+            <button type="button" class="cmdDuplicate" title="Duplicate rule">&#x29C9;</button>
+            <button type="button" class="cmdDelete" title="Delete rule">&#x2718;</button>
+          </div>
         </div>
-
-        <div id="options" class="section">
-            <h2>Options</h2>
-            <p>
-                <label><input type="checkbox" id="chkEnabled">Enabled</label>
-            </p>
-            <p>
-                <label><input type="checkbox" checked="checked" id="chkOnlyIfFocused">Reload tab only if focused</label>
-            </p>
+        <div class="rule-row">
+          <div class="label">URL pattern</div>
+          <div class="value">
+            <input type="text" class="field field-urlPattern" placeholder="URL regular expression pattern that will activate this rule">
+          </div>
         </div>
-
-        <div id="rules" class="section">
-            <h2>Rules</h2>
-            <p>List of configured rules, click <a id="cmdHelp" href="#">here</a> for help.</p>
-            <table id="tblRules" class="rules"></table>
-            <div id="actions" class="actions">
-                <button id="cmdAddNew" type="button" title="Add new rule">&#x271A;</button>
-                <button id="cmdSave" type="button">Apply configuration</button>
-            </div>
+        <div class="rule-row">
+          <div class="label">Base directory</div>
+          <div class="value">
+            <input type="text" class="field field-directory" placeholder="Full path of local directory to watch for changes">
+          </div>
+          <div class="actions">
+            <button type="button" class="cmdSelectDirectory" title="Select directory">...</button>
+          </div>
         </div>
+        <div class="rule-row">
+          <div class="label">Include pattern</div>
+          <div class="value">
+            <input type="text" class="field field-includePattern" placeholder="Regular expression to select filenames triggering the rule">
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="label">Exclude pattern</div>
+          <div class="value">
+            <input type="text" class="field field-excludePattern" placeholder="Regular expression to exclude filenames from triggering the rule">
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="label">Bypass cache</div>
+          <div class="value">
+            <input type="checkbox" class="field-bypassCache">
+          </div>
+        </div>
+        <div class="rule-row">
+          <div></div>
+          <div  class="rule-error hidden"></div>
+        </div>
+      </tbody>
+    </template>
 
-
-        <!-------------------
-          rule item template
-          ------------------->
-        <template id="itemTemplate">
-            <tbody class="itemTemplateBody rule">
-                <tr>
-                    <td class="label">Rule ID</td>
-                    <td class="value">
-                        <input type="text" class="field field-ruleId" placeholder="Unique rule name">
-                        <label><input type="checkbox" class="field-enabled">Enabled</label>
-                    </td>
-                    <td class="actions">
-                        <button type="button" class="cmdDuplicate" title="Duplicate rule">&#x29C9;</button>
-                        <button type="button" class="cmdDelete" title="Delete rule">&#x2718;</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">URL pattern</td>
-                    <td class="value" colspan="2">
-                        <input type="text" class="field field-urlPattern" placeholder="URL regular expression pattern that will activate this rule">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Base directory</td>
-                    <td class="value">
-                        <input type="text" class="field field-directory" placeholder="Full path of local directory to watch for changes">
-                    </td>
-                    <td class="actions">
-                        <button type="button" class="cmdSelectDirectory" title="Select directory">...</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Include pattern</td>
-                    <td class="value" colspan="2">
-                        <input type="text" class="field field-includePattern" placeholder="Regular expression to select filenames triggering the rule">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Exclude pattern</td>
-                    <td class="value" colspan="2">
-                        <input type="text" class="field field-excludePattern" placeholder="Regular expression to exclude filenames from triggering the rule">
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td colspan="2" class="rule-error hidden"></td>
-                </tr>
-            </tbody>
-        </template>
-
-        <!-------------------
-          no rules template
-          ------------------->
-        <template id="itemTemplateEmpty">
-            <tbody class="itemTemplateBody norules">
-                <tr>
-                    <td>No rules defined</td>
-                </tr>
-            </tbody>
-        </template>
+    <!-------------------
+      no rules template
+      ------------------->
+      <template id="itemTemplateEmpty">
+        <div class="rule">
+          <div class="rule-row">
+            <div>No rules defined</div>
+          </div>
+        </tbody>
+      </template>
 
     </body>
 
-</html>
+    </html>

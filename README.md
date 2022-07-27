@@ -18,6 +18,7 @@ if you want to test the latest available one you need to:
 
 - download source files from GitHub (https://github.com/coolsoft-ita/filewatcher)
 - open *about:debugging* page on Firefox
+- select "This Firefox" subtab
 - click on "Load temporary addon" button and select *manifest.json* from source files
 
 ## Licensing

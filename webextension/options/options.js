@@ -119,9 +119,9 @@ $(document).ready(function(){
     function FindRuleItem(ruleId)
     {
         let $found = null;
-        $('tbody.rule .field-ruleId').each(function(){
+        $('.rule .field-ruleId').each(function(){
             if ($(this).val() == ruleId) {
-                $found = $(this).closest('tbody');
+                $found = $(this).closest('.rule');
                 return false; // escape from each()
             }
         });
@@ -187,7 +187,7 @@ $(document).ready(function(){
 
         // scan rule HTML items and build rules
         let errorsFound = false;
-        $('#tblRules tbody').each(function(){
+        $('#tblRules .rule').each(function(){
             var item = $(this);
             var rule = ValidateHTMLItem(item, rules);
             if (rule === false) {
@@ -217,7 +217,7 @@ $(document).ready(function(){
     function UpdateRulesList(rules)
     {
         // cleanup
-        tblRules.find('tbody').remove();
+        tblRules.find('.rule').remove();
 
         // fill data
         $.each(rules, function(ruleId, rule){
@@ -249,11 +249,11 @@ $(document).ready(function(){
                 }
             });
             $template.find('.cmdDuplicate').click(function(){
-                DuplicateRuleItem($(this).closest('tbody'));
+                DuplicateRuleItem($(this).closest('.rule'));
             });
             $template.find('.cmdDelete').click(function(){
                 if (confirm('Delete this rule?')) {
-                    $(this).closest('tbody').remove();
+                    $(this).closest('.rule').remove();
                 }
             });
             $template.find('.cmdSelectDirectory').click(function () {

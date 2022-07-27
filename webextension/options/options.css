@@ -62,11 +62,23 @@ ol li {
 }
 
 .rule {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   border: 1px solid lightgray;
   border-radius: 5px;
   margin: .5em 0;
   padding: .5em;
+}
+
+.rule-row {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: baseline;
+}
+
+.rule-row .label {
+  min-width: 8em;
 }
 
 label,
@@ -84,10 +96,10 @@ label,
 .rule .field {
   width: 100%;
   font-family: monospace !important;
+  margin: 0;
 }
 
 .rule .field-ruleId {
-  width: auto;
   font-weight: bold;
 }
 

@@ -31,8 +31,15 @@ $(document).ready(function(){
     // load settings and update rules list
     chrome.storage.local.get(['enabled', 'rules', 'onlyIfFocused'], function(settings){
         if (settings.hasOwnProperty('rules')) {
-            var rules = JSON.parse(settings.rules);
-            UpdateRulesList(rules || {});
+            // stored objects could be "different" from current ones, so merge them
+            var rules = {};
+            var saved = JSON.parse(settings.rules || '{}');
+            saved = typeof(saved) === 'object' ? saved : {};
+            for (let id in saved) {
+              rules[id] = Object.assign(new Rule(), saved[id]);
+            }
+            // update options page
+            UpdateRulesList(rules);
         }
         $('#chkEnabled').prop('checked', settings.enabled);
         $('#chkOnlyIfFocused').prop('checked', settings.onlyIfFocused !== undefined ? settings.onlyIfFocused : true);
@@ -40,6 +47,8 @@ $(document).ready(function(){
 
     // attach events to UI elements
     $('#cmdSave').click(SaveConfiguration);
+    $('#cmdAddNew').click(AddNewRule);
+    $('#cmdHelp').click(OpenHelpWindow);
     $('#cmdReload').click(function () {
         location.reload();
     });
@@ -55,9 +64,6 @@ $(document).ready(function(){
     function NativeAppAvailable(nativeVersion)
     {
         // set UI
-        $('#cmdSave').click(SaveConfiguration);
-        $('#cmdAddNew').click(AddNewRule);
-        $('#cmdHelp').click(OpenHelpWindow);
         $('#info .field-version').html(nativeVersion.version);
         $('#info .field-protocolVersion').html(nativeVersion.protocolVersion);
         $('#info .field-executable').html(nativeVersion.executable);
@@ -197,8 +203,7 @@ $(document).ready(function(){
 
         // save rules and refresh the list
         if (!errorsFound) {
-            chrome.storage.local.set({ rules: JSON.stringify(rules) });
-            chrome.storage.local.set({ saved: true });
+            chrome.storage.local.set({ rules: JSON.stringify(rules), saved: true });
             UpdateRulesList(rules || {});
         }
 

@@ -114,7 +114,8 @@ input[type="checkbox"] {
 }
 
 .error,
-.rule-error {
+.rule-error,
+.rule-error > div {
   color: #F00;
 }
 

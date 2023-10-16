@@ -1,4 +1,5 @@
 ﻿#include <stdarg.h>
+#include <string.h>
 #include <iostream>
 #include "utils.h"
 #include "version.h"

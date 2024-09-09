@@ -134,16 +134,14 @@ $(document).ready(function(){
      */
     function DuplicateRuleItem(ruleElem)
     {
-        // duplicate source rule
-        let newElem = ruleElem.clone(true);
-
+        // duplicate source rule through HTML->Rule->HTML
+        const clonedRule = HTML2Rule(ruleElem);
         // set random ruleId
-        let idField = newElem.find('.field-ruleId');
-        idField.val(GetNewRuleID());
+        const clonedElem = Rule2HTML(GetNewRuleID(), clonedRule);
 
         // add new rule and select it
-        ruleElem.after(newElem);
-        newElem.find('.field-ruleId').focus().select();
+        ruleElem.after(clonedElem);
+        clonedElem.find('.field-ruleId').focus().select();
     }
 
 

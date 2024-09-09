@@ -26,6 +26,10 @@ FileWatcher is open source software, licensed under GPLv3.
 
 ## Version history
 
+### v.1.2.1 - 2024-09-09
+
+- Fixed issue in duplicate rule feature.
+
 ### v.1.2.0 - 2023-08-17
 
 - New feature to bypass browser cache while reloading a tab.
